@@ -1,0 +1,17 @@
+# Data and outputs (regenerate with scripts)
+*.parquet
+
+# Hugging Face / model cache (symlinks, large; use ~/.cache/huggingface/hub on each machine)
+cache/
+# 159MB zip over GitHub limit; repo has cache.zip (~80MB) for sentence-transformer
+sentence-transformer-MiniLM-L6-v2.zip
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store

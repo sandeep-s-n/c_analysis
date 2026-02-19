@@ -1,0 +1,61 @@
+# CFPB Wells Fargo Emerging Topics POC — single source of truth for pipeline and dashboard.
+# Do not hardcode these values in scripts.
+
+cfpb:
+  source_url: "https://files.consumerfinance.gov/ccdb/complaints.csv.zip"
+  company_filter_pattern: "Wells Fargo"
+  # Drop exact/near duplicates using these columns when present (safe fallbacks otherwise)
+  dedup_subset:
+    - complaint_id
+    - date_received
+    - product
+    - issue
+    - consumer_complaint_narrative
+  # Warn (but continue) if filtered rows fall below this threshold
+  min_filtered_rows: 100
+
+paths:
+  data_dir: "data"
+  complaints_parquet: "data/wells_fargo_complaints.parquet"
+  complaints_standardized_parquet: "data/wells_fargo_complaints_standardized.parquet"
+  taxonomy: "data/taxonomy.yaml"
+  manifest: "data/manifest.json"
+  pipeline_status: "data/pipeline_status.json"
+  emerging_topics: "data/emerging_topics.json"
+  emerging_summary: "data/emerging_summary.parquet"
+  emerging_hierarchy: "data/emerging_hierarchy.parquet"
+  emerging_hierarchy_json: "data/emerging_hierarchy.json"
+  # Narrative pipeline (phase 2): embeddings and emerging narrative topics
+  narrative_embeddings: "data/narrative_embeddings.parquet"
+  narrative_emerging: "data/narrative_emerging.json"
+  narrative_topics_table: "data/narrative_topics.parquet"
+  risk_signals: "data/risk_signals.parquet"
+
+emergence:
+  time_window_days: 30
+  prior_window_days: 30
+  growth_threshold: 1.5
+  top_n_rank: 5
+  top_n_emerging: 10
+  # Only surface topics with at least this many complaints in the current window (avoids noise from 2–3 complaints)
+  min_current_volume: 10
+  # For growth-based emergence, require at least this many in prior window (avoids "2 vs 0" spikes)
+  min_prior_volume: 5
+  # Baseline/seasonality window (days) to compute expected volume and lift_vs_baseline
+  seasonality_window_days: 90
+  # Require persistence across runs to dampen one-off spikes (1 disables)
+  persistence_min_runs: 1
+  hide_new_until_persistent: false
+
+# Hugging Face model for narrative phase (phase 2). Pre-trained only; no custom training.
+# Optional upgrade for banking language: FinTextSim or FinLang/finance-embeddings-investopedia (set embedding_model_id in config).
+embedding_model_id: "sentence-transformers/all-MiniLM-L6-v2"
+# Batch size for embedding complaint corpus text (avoid OOM on large runs)
+narrative_embed_batch_size: 64
+embedding_device: "auto"  # auto|cpu|cuda|mps
+
+dashboard:
+  # If narrative outputs are older than complaint data, dashboard auto-runs narrative_topics.py once per data refresh.
+  auto_refresh_narratives_on_stale: true
+  # Max runtime for automatic narrative refresh in dashboard.
+  narrative_refresh_timeout_seconds: 1800

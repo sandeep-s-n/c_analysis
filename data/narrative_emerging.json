@@ -1,0 +1,29 @@
+{
+  "emerging": [
+    {
+      "topic_id": 1,
+      "topic_label": "overdraft, fees, fee",
+      "current_volume": 18,
+      "prior_volume": 7,
+      "growth_ratio": 2.5714285714285716,
+      "takeaway": "overdraft, fees, fee \u2014 complaints up 157% vs prior period Consider reviewing process and customer communications."
+    },
+    {
+      "topic_id": 16,
+      "topic_label": "atm, machine, deposit",
+      "current_volume": 10,
+      "prior_volume": 5,
+      "growth_ratio": 2.0,
+      "takeaway": "atm, machine, deposit \u2014 complaints up 100% vs prior period Consider reviewing process and customer communications."
+    },
+    {
+      "topic_id": 3,
+      "topic_label": "cfpb, complaint, response",
+      "current_volume": 17,
+      "prior_volume": 11,
+      "growth_ratio": 1.5454545454545454,
+      "takeaway": "cfpb, complaint, response \u2014 complaints up 55% vs prior period Consider reviewing process and customer communications."
+    }
+  ],
+  "computed_at": "2026-02-18T04:00:20.577375+00:00"
+}

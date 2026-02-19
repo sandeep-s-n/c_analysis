@@ -1,0 +1,77 @@
+{
+  "emerging": [
+    {
+      "product": "Credit Card",
+      "rank_current": 2,
+      "rank_prior": 3,
+      "current_volume": 290,
+      "prior_volume": 291,
+      "baseline_volume": 763,
+      "lift_vs_baseline": 0.3800786369593709,
+      "distinct_states": 38,
+      "growth_ratio": 0.9965635738831615,
+      "growth_pct": -0.3,
+      "top_issues": [
+        {
+          "issue": "Purchase on statement",
+          "current_volume": 115
+        },
+        {
+          "issue": "Other terms/problems",
+          "current_volume": 37
+        },
+        {
+          "issue": "Getting credit card",
+          "current_volume": 36
+        },
+        {
+          "issue": "Fees or interest",
+          "current_volume": 22
+        },
+        {
+          "issue": "Incorrect credit report",
+          "current_volume": 21
+        }
+      ],
+      "takeaway": "Credit Card complaints up -0% vs prior period (290 in current window) now #2 (was #3) \u2014 consider reviewing process and customer communications.",
+      "persistent": true
+    },
+    {
+      "product": "Credit Reporting & Disputes",
+      "rank_current": 2,
+      "rank_prior": 3,
+      "current_volume": 290,
+      "prior_volume": 291,
+      "baseline_volume": 930,
+      "lift_vs_baseline": 0.3118279569892473,
+      "distinct_states": 35,
+      "growth_ratio": 0.9965635738831615,
+      "growth_pct": -0.3,
+      "top_issues": [
+        {
+          "issue": "Incorrect credit report",
+          "current_volume": 141
+        },
+        {
+          "issue": "Improper use of report",
+          "current_volume": 91
+        },
+        {
+          "issue": "Company investigation",
+          "current_volume": 55
+        },
+        {
+          "issue": "Credit monitoring or identity theft protection services",
+          "current_volume": 1
+        },
+        {
+          "issue": "Identity theft protection or other monitoring services",
+          "current_volume": 1
+        }
+      ],
+      "takeaway": "Credit Reporting & Disputes complaints up -0% vs prior period (290 in current window) now #2 (was #3) \u2014 consider reviewing process and customer communications.",
+      "persistent": true
+    }
+  ],
+  "computed_at": "2026-02-17T23:58:51.127546+00:00"
+}

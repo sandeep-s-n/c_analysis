@@ -1,0 +1,27 @@
+# CFPB Wells Fargo Emerging Topics POC — pinned/minimum versions for reproducibility.
+# Python 3.10+ required. Install: python -m venv .venv && .venv/bin/activate (Mac) or .venv\Scripts\activate (Windows)
+
+# Core
+pandas>=2.0.0,<3
+pyarrow>=14.0.0
+requests>=2.28.0
+pyyaml>=6.0
+numpy<2.0.0  # torch/numba wheels currently built against numpy 1.x
+
+# Dashboard
+streamlit>=1.28.0
+
+# Optional: faster I/O
+# polars>=0.19.0
+
+# Phase 2 (narrative NLP) — Hugging Face only; BERTopic uses sentence-transformers under the hood
+# Install torch first on some systems: pip install torch then pip install -r requirements.txt
+torch>=2.0.0
+bertopic>=0.16.0
+sentence-transformers>=2.2.0
+scikit-learn>=1.3.0
+# keybert>=0.8.0  # optional for keyphrase labels
+
+# Dev / quality
+ruff>=0.1.0
+pytest>=7.4.0

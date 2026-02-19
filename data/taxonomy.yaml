@@ -1,0 +1,150 @@
+# Redress / LOB taxonomy for CFPB Wells Fargo complaints.
+# Designed for a large customer redress function: LOBs = who owns the complaint and is measured on it.
+# CFPB "product" is consumer-facing; we map to internal redress LOBs and optional product_line refinement.
+# Customize lob_redress and product_line to match your org structure.
+
+# --- Redress LOBs (lines of business that own complaint handling) ---
+# These are the canonical groupings for redress reporting. "Money transfer" is NOT its own LOB;
+# it is a product/channel under Consumer Banking (payments / money movement).
+# Order below is typical for executive reporting (volume / risk).
+
+lob_redress:
+  Consumer Banking:       # Deposits, checking, savings, branch, payments (wires, ACH, Zelle, etc.)
+  Credit Card:            # Card lending, rewards, disputes
+  Mortgage:               # Origination, servicing, foreclosure / loss mitigation
+  Auto:                   # Vehicle loan or lease
+  Personal Lending:       # Personal loans, student loans, payday/title if applicable; debt management
+  Debt Collection:       # Recovery / collections operations
+  Credit Reporting & Disputes:   # Furnishing, FCRA, dispute handling
+  Other:                  # Catch-all
+
+# Map CFPB raw "product" -> redress LOB (canonical_product in output)
+canonical_products:
+  # Consumer Banking (deposits + payments; money transfer is a product line here, not its own LOB)
+  "Checking or savings account": "Consumer Banking"
+  "Bank account or service": "Consumer Banking"
+  "Money transfer, virtual currency, or money service": "Consumer Banking"
+  "Money transfers": "Consumer Banking"
+  # Credit Card
+  "Credit card": "Credit Card"
+  "Credit card or prepaid card": "Credit Card"
+  "Prepaid card": "Credit Card"
+  # Mortgage
+  Mortgage: "Mortgage"
+  # Auto
+  "Vehicle loan or lease": "Auto"
+  # Personal Lending
+  "Consumer Loan": "Personal Lending"
+  "Student loan": "Personal Lending"
+  "Payday loan, title loan, or personal loan": "Personal Lending"
+  "Payday loan, title loan, personal loan, or advance loan": "Personal Lending"
+  "Payday loan": "Personal Lending"
+  "Debt or credit management": "Personal Lending"
+  # Debt Collection
+  "Debt collection": "Debt Collection"
+  # Credit Reporting & Disputes
+  "Credit reporting or other personal consumer reports": "Credit Reporting & Disputes"
+  "Credit reporting, credit repair services, or other personal consumer reports": "Credit Reporting & Disputes"
+  "Credit reporting": "Credit Reporting & Disputes"
+  # Other
+  "Other financial service": "Other"
+
+# Product line / sub-LOB refinement (within each LOB) for redress nuance
+# Enables slicing e.g. "Consumer Banking > Payments" vs "Consumer Banking > Deposits"
+product_line:
+  "Checking or savings account": "Deposits"
+  "Bank account or service": "Deposits"
+  "Money transfer, virtual currency, or money service": "Payments / money movement"
+  "Money transfers": "Payments / money movement"
+  "Credit card": "Card lending"
+  "Credit card or prepaid card": "Card lending"
+  "Prepaid card": "Prepaid"
+  Mortgage: "Mortgage"
+  "Vehicle loan or lease": "Auto"
+  "Consumer Loan": "Personal loans"
+  "Student loan": "Student lending"
+  "Payday loan, title loan, or personal loan": "Personal / title / payday"
+  "Payday loan, title loan, personal loan, or advance loan": "Personal / title / payday"
+  "Payday loan": "Payday"
+  "Debt or credit management": "Debt management"
+  "Debt collection": "Debt collection"
+  "Credit reporting or other personal consumer reports": "Credit reporting"
+  "Credit reporting, credit repair services, or other personal consumer reports": "Credit reporting"
+  "Credit reporting": "Credit reporting"
+  "Other financial service": "Other"
+  _default: "Other"
+
+# risk_type: operational (process/systems failure), pricing_dispute (rates/fees),
+# service (quality/timeliness), fraud, other. Used for systemic vs individual scoring.
+issue_risk_type:
+  "Incorrect information on your report": "operational"
+  "Problem with a company's investigation into an existing problem": "operational"
+  "Problem with a credit reporting company's investigation into an existing problem": "operational"
+  "Problem with a lender or other company charging your account": "operational"
+  "Loan modification,collection,foreclosure": "operational"
+  "Account opening, closing, or management": "operational"
+  "Deposits and withdrawals": "operational"
+  "Problem when making payments": "operational"
+  "Trouble during payment process": "operational"
+  "Money was not available when promised": "operational"
+  "Problem caused by your funds being low": "operational"
+  "Problems caused by my funds being low": "operational"
+  "Managing an account": "operational"
+  "Managing the loan or lease": "operational"
+  "Closing an account": "operational"
+  "Opening an account": "operational"
+  "Applying for a mortgage or refinancing an existing mortgage": "operational"
+  "Application, originator, mortgage broker": "operational"
+  "Closing on a mortgage": "operational"
+  "Repossession": "operational"
+  "Took or threatened to take negative or legal action": "operational"
+  "Attempts to collect debt not owed": "operational"
+  "Improper use of your report": "operational"
+  "Problem with fraud alerts or security freezes": "operational"
+  "Written notification about debt": "operational"
+  "Communication tactics": "operational"
+  "Threatened to contact someone or share information improperly": "operational"
+  "Other transaction problem": "operational"
+  "Fees or interest": "pricing_dispute"
+  "Unexpected or other fees": "pricing_dispute"
+  "Problem with a purchase shown on your statement": "pricing_dispute"
+  "Other features, terms, or problems": "pricing_dispute"
+  "Getting a credit card": "pricing_dispute"
+  "Struggling to pay your bill": "pricing_dispute"
+  "Struggling to pay mortgage": "pricing_dispute"
+  "Confusing or misleading advertising or marketing": "pricing_dispute"
+  "Dealing with your lender or servicer": "service"
+  "Loan servicing, payments, escrow account": "service"
+  "Fraud or scam": "fraud"
+  "Lost or stolen money order": "fraud"
+  "Lost or stolen check": "fraud"
+  _default: "other"
+
+# Shorter issue labels for dropdowns and reports
+canonical_issues:
+  "Loan modification,collection,foreclosure": "Loan mod / foreclosure"
+  "Managing an account": "Account management"
+  "Incorrect information on your report": "Incorrect credit report"
+  "Loan servicing, payments, escrow account": "Servicing / escrow"
+  "Trouble during payment process": "Payment process"
+  "Struggling to pay mortgage": "Struggling to pay mortgage"
+  "Account opening, closing, or management": "Account open/close"
+  "Problem with a lender or other company charging your account": "Unauthorized charges"
+  "Improper use of your report": "Improper use of report"
+  "Problem caused by your funds being low": "Low funds / overdraft"
+  "Fraud or scam": "Fraud or scam"
+  "Problem with a purchase shown on your statement": "Purchase on statement"
+  "Deposits and withdrawals": "Deposits / withdrawals"
+  "Closing an account": "Closing account"
+  "Opening an account": "Opening account"
+  "Managing the loan or lease": "Managing loan/lease"
+  "Applying for a mortgage or refinancing an existing mortgage": "Mortgage application"
+  "Application, originator, mortgage broker": "Application / broker"
+  "Attempts to collect debt not owed": "Debt not owed"
+  "Problem with a credit reporting company's investigation into an existing problem": "CR investigation"
+  "Getting a credit card": "Getting credit card"
+  "Problems caused by my funds being low": "Low funds"
+  "Other features, terms, or problems": "Other terms/problems"
+  "Problem with a company's investigation into an existing problem": "Company investigation"
+  "Took or threatened to take negative or legal action": "Negative/legal action"
+  _default: null
